@@ -1,3 +1,156 @@
+Pack myPack = new(5, 5.0f, 1.0f);
+
+while (true)
+{
+    Console.WriteLine("What item do you want to pack?");
+    Console.WriteLine("- Enter 1 for an Arrow.");    
+    Console.WriteLine("- Enter 2 for an Bow.");
+    Console.WriteLine("- Enter 3 for an Rope.");
+    Console.WriteLine("- Enter 4 for an Water.");
+    Console.WriteLine("- Enter 5 for an Food.");
+    Console.WriteLine("- Enter 6 for an Sword.");
+    string choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "1":
+            Arrow myArrow = new();
+            myPack.Add(myArrow);
+            break;
+        case "2":
+            Bow myBow = new();
+            myPack.Add(myBow);
+            break;
+        case "3":
+            Rope myRope = new();
+            myPack.Add(myRope);
+            break;
+        case "4":
+            Water myWater = new();
+            myPack.Add(myWater);
+            break;
+        case "5":
+            Food myFood = new();
+            myPack.Add(myFood);
+            break;
+        case "6":
+            Sword mySword = new();
+            myPack.Add(mySword);
+            break;
+    }
+}
+
+public class Pack
+{
+    InventoryItem[] Items {get; set;}
+    int ItemLimit {get;}
+    int ItemCount {get; set;}
+    float WeightLimit {get;}
+    float CurrentWeight {get; set;}
+    float VolumeLimit {get; }
+    float CurrentVolume {get; set;}
+
+    public Pack(int itemLimit, float weightLimit, float volumeLimit)
+    {
+        Items = new InventoryItem[itemLimit];
+        ItemLimit=itemLimit; ItemCount=0; 
+        WeightLimit=weightLimit; CurrentWeight=0.00f;
+        VolumeLimit=volumeLimit; CurrentVolume=0.00f;
+    }
+
+    public void Total()
+    {
+        if (ItemCount == 0) {Console.WriteLine("Item count was zero. No total.");}
+        else{
+            ItemCount = 0;
+            CurrentWeight = 0.00f;
+            CurrentVolume = 0.00f;
+
+            foreach(InventoryItem item in Items)
+                {
+                    if (item!= null)
+                    {
+                        ItemCount +=1;
+                        CurrentWeight += item.Weight;
+                        CurrentVolume += item.Volume;
+                    }
+                }
+            Console.WriteLine($"Item count is: {ItemCount}");
+            Console.WriteLine($"Current Weight is: {CurrentWeight}");
+            Console.WriteLine($"Current Volume is: {CurrentVolume}");
+        }
+    }
+
+    public void Add(InventoryItem item)
+    {
+        Total();
+        if (ItemCount < ItemLimit && CurrentWeight < WeightLimit && CurrentVolume < VolumeLimit)
+        {
+            Items[ItemCount] = item;
+            ItemCount+=1;
+        }
+        else Console.WriteLine("Additional item exceeds pack limitations. Not added.");
+    }
+}
+
+public class InventoryItem
+{
+    public float Weight {get; set;}
+    public float Volume {get; set;}
+}
+
+public class Arrow : InventoryItem
+{
+    public Arrow()
+    {
+        Weight = 0.1f;
+        Volume = 0.05f;
+    }
+}
+public class Bow : InventoryItem
+{
+    public Bow()
+    {
+        Weight = 1.0f;
+        Volume = 4.0f;
+    }
+}
+public class Rope : InventoryItem
+{
+    public Rope()
+    {
+        Weight = 1.0f;
+        Volume = 1.5f;
+    }
+    
+}
+public class Water : InventoryItem
+{
+    public Water()
+    {
+        Weight = 2.0f;
+        Volume = 3.0f;
+    }
+}
+public class Food : InventoryItem
+{
+    public Food()
+    {
+        Weight = 1.0f;
+        Volume = 0.5f;
+    }
+
+}
+public class Sword : InventoryItem
+{
+    public Sword()
+    {
+        Weight = 5.0f;
+        Volume = 3.0f;
+    }
+}
+
+
 using System;
 using System.Linq;
 
