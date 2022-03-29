@@ -1,3 +1,133 @@
+using System;
+
+Robot myRobot = new();
+
+for (int index = 0; index < 3; index++ )
+{
+    Console.WriteLine("Please enter a command.");
+    Console.WriteLine("- Enter 0 to Turn the Robot Off.");
+    Console.WriteLine("- Enter 1 to Turn the Robot On.");
+    Console.WriteLine("- Enter N to Move the Robot North.");
+    Console.WriteLine("- Enter S to Move the Robot South");
+    Console.WriteLine("- Enter W to Move the Robot West");
+    Console.WriteLine("- Enter E to Move the Robot East");
+    String myCommand = Console.ReadLine();
+    Console.Clear();
+
+    switch (myCommand)
+    {
+        case "0":
+            myRobot.Commands[index] = new OffCommand();
+            break;
+        
+        case "1":
+            myRobot.Commands[index] = new OnCommand();
+            break;
+        
+        case "N":
+            myRobot.Commands[index] = new NorthCommand();
+            break;
+        
+        case "S":
+            myRobot.Commands[index] = new SouthCommand();
+            break;
+        
+        case "W":
+            myRobot.Commands[index] = new WestCommand();
+            break;
+
+        case "E":
+            myRobot.Commands[index] = new EastCommand();
+            break;
+        
+        default :
+            Console.WriteLine("That's not a valide command, you fucking idiot!");
+            index--;
+            break;
+    }
+}
+
+myRobot.Run();
+
+public class Robot
+{
+    public int X {get; set;}
+    public int Y {get; set;}
+    public bool IsPowered {get; set;}
+    public RobotCommand[] Commands {get;} = new RobotCommand[3];
+    public void Run()
+    {
+        foreach (RobotCommand command in Commands)
+        {
+            command.Run(this);
+            Console.WriteLine($"[{X} {Y} {IsPowered}]");
+        }
+    }
+}
+
+public abstract class RobotCommand
+{
+    public abstract void Run(Robot robot);
+}
+
+public class OnCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        robot.IsPowered = true;
+    }
+} 
+
+public class OffCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        robot.IsPowered = false;
+    }
+}
+
+public class NorthCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.Y++;
+        }
+    }
+}
+public class SouthCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.Y--;
+        }
+    }
+    
+}
+public class WestCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.X--;
+        }
+    }
+}
+public class EastCommand : RobotCommand
+{
+    public override void Run(Robot robot)
+    {
+        if (robot.IsPowered)
+        {
+            robot.X++;
+        }
+    }
+}
+
 Pack myPack = new(5, 5.0f, 1.0f);
 
 while (true)
