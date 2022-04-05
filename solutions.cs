@@ -1,5 +1,36 @@
 using System;
 
+Sword myFirstSword = new(Material.Iron, Gemstone.None, 24.0f, 10.0f);
+Sword mySecondSword = myFirstSword with {material=Material.Wood, gemstone=Gemstone.Amber};
+Sword myThirdSword = mySecondSword with {length=23.0f, crossguard=14.0f};
+
+Console.WriteLine(myFirstSword);
+Console.WriteLine(mySecondSword);
+Console.WriteLine(myThirdSword);
+
+public record Sword(Material material, Gemstone gemstone, float length, float crossguard);
+public enum Material
+{
+    Wood,
+    Bronze,
+    Iron,
+    
+    Steel,
+    Binarium,
+}
+
+public enum Gemstone
+{
+    None,
+    Emerald,
+    Amber,
+    Sapphire,
+    Diamond,
+    Bitstone,
+}
+
+using System;
+
 Coordinate myFirstCoordinate = new(5, 5);
 Coordinate myAdjacentCoordinate = new(5,4);
 Coordinate myNonAdjacentCoordinate = new(7, 7);
