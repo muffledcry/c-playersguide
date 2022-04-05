@@ -1,5 +1,41 @@
 using System;
 
+
+ColoredItem<Sword> myBlueSword = new ColoredItem<Sword>(new(), ConsoleColor.Blue);
+ColoredItem<Bow> myGreenBow = new ColoredItem<Bow>(new(), ConsoleColor.Green);
+ColoredItem<Axe> myCyanAxe = new ColoredItem<Axe>(new(), ConsoleColor.Cyan);
+myBlueSword.Display();
+myGreenBow.Display();
+myCyanAxe.Display();
+
+
+
+public class ColoredItem<T>
+{
+    public T? Item {get;}
+    public ConsoleColor Color {get;}
+
+    public ColoredItem(T item, ConsoleColor color)
+    {
+        Item = item;
+        Color = color;
+    }
+
+    public void Display()
+    {
+        Console.ForegroundColor = Color;
+        Console.WriteLine(Item);
+    }
+}
+
+public class Sword {}
+public class Bow {}
+public class Axe {}
+
+
+
+using System;
+
 Sword myFirstSword = new(Material.Iron, Gemstone.None, 24.0f, 10.0f);
 Sword mySecondSword = myFirstSword with {material=Material.Wood, gemstone=Gemstone.Amber};
 Sword myThirdSword = mySecondSword with {length=23.0f, crossguard=14.0f};
