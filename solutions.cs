@@ -1,5 +1,36 @@
 using System;
 
+Coordinate myFirstCoordinate = new(5, 5);
+Coordinate myAdjacentCoordinate = new(5,4);
+Coordinate myNonAdjacentCoordinate = new(7, 7);
+
+bool adjacent = myFirstCoordinate.isAdjacent(myAdjacentCoordinate);
+bool nonAdjacent = myFirstCoordinate.isAdjacent(myNonAdjacentCoordinate);
+
+Console.WriteLine(adjacent);
+Console.WriteLine(nonAdjacent);
+
+public struct Coordinate
+{
+    private readonly int Row;
+    private readonly int Column;
+
+    public Coordinate(int row, int column)
+    {
+        Row=row;
+        Column=column;
+    }
+
+    public bool isAdjacent(Coordinate other)
+    {
+        if (Row == other.Row && (Column == other.Column+1 || Column == other.Column-1)) return true;
+        else if (Column == other.Column && (Row == other.Row+1 || Row == other.Row-1)) return true;
+        else return false;
+    }
+}
+
+using System;
+
 Robot myRobot = new();
 
 for (int index = 0; index < 3; index++ )
